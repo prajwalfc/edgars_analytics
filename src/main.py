@@ -2,11 +2,15 @@ import sys
 import csv
 from functools import reduce
 
-
 #####--------------------------HOFs Start ----------------#########################
 
+def convertTimeToInteger(timeString):
+    hour,min,sec = timeString.split(":")
+    #return timeString
+    return (int(hour)*3600 + int(min)*60+int(sec))
+
 def selectedFieldsOnly(row):
-    return{"ip":row['ip'],row['ip']:(row['date'],row['time'],row['cik'],row['accession'],row['extention'])}
+    return{"ip":row['ip'],row['ip']:(row['date'],convertTimeToInteger(row['time']),row['cik'],row['accession'],row['extention'])}
 
 def reduceByIp(x,row):
     ip = row['ip']
@@ -17,11 +21,14 @@ def reduceByIp(x,row):
 
 def evluaterMapper(ip_body):
     ip,body = ip_body
+
+    if ip == '117.91.2.iji':
+        for row in body:
+            print(row[1])
     return (ip,len(body))
 
-def
 
-#####--------------------------HOFs Start ----------------#########################
+#####--------------------------HOFs end ----------------#########################
 
 
 if __name__ == "__main__":
